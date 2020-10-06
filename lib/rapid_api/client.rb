@@ -2,6 +2,7 @@
 
 require 'net/http'
 require 'json'
+require 'rapid_schema_parser'
 require 'rapid_api/request_error'
 require 'rapid_api/connection_error'
 
@@ -35,7 +36,8 @@ module RapidAPI
     end
 
     def load_schema_from_api
-      @schema = make_request(Net::HTTP::Get, 'schema')
+      body = make_request(Net::HTTP::Get, 'schema')
+      @schema = RapidSchemaParser::Schema.new(body)
       true
     end
 

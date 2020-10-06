@@ -102,7 +102,7 @@ describe RapidAPI::Client do
   context '#load_schema_from_api' do
     it 'loads the schema' do
       expect(client.load_schema_from_api).to be true
-      expect(client.schema).to be_a Hash
+      expect(client.schema).to be_a RapidSchemaParser::Schema
     end
 
     it 'marks the schema as loaded' do

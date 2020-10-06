@@ -13,4 +13,5 @@ Gem::Specification.new do |s|
   s.authors       = ['Adam Cooke']
   s.email         = ['adam@krystal.uk']
   s.add_runtime_dependency 'json'
+  s.add_runtime_dependency 'rapid-schema-parser'
 end
