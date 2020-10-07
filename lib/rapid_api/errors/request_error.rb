@@ -14,6 +14,18 @@ module RapidAPI
       @error = @body['error']
     end
 
+    def to_s
+      string = ["[#{@status}]"]
+      if code && description
+        string << "#{code}: #{description}"
+      elsif code
+        string << code
+      else
+        string << @body
+      end
+      string.join(' ')
+    end
+
     def code
       @error['code']
     end
