@@ -14,5 +14,5 @@ Gem::Specification.new do |s|
   s.email         = ['adam@krystal.uk']
   s.add_runtime_dependency 'json'
   s.add_runtime_dependency 'rapid-schema-parser'
-  s.required_ruby_version = '>= 2.6'
+  s.required_ruby_version = '>= 2.5'
 end
