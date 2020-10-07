@@ -140,16 +140,16 @@ describe RapidAPI::API do
     end
   end
 
-  context '#perform_request' do
+  context '#perform' do
     it 'performs a given request' do
       api.load_schema
-      response = api.perform_request(:get, 'products')
+      response = api.perform(:get, 'products')
       expect(response.hash['products']).to be_a Array
     end
 
     it 'performs a request executing a block before hand' do
       api.load_schema
-      response = api.perform_request(:get, 'products/:id') do |req|
+      response = api.perform(:get, 'products/:id') do |req|
         req.arguments[:id] = 'airpods'
       end
       expect(response.hash['product']).to eq 'airpods'

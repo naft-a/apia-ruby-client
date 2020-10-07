@@ -51,7 +51,7 @@ module RapidAPI
       Response.new(self, request, body, headers, status)
     end
 
-    def perform_request(*args)
+    def perform(*args)
       request = create_request(*args)
       return if request.nil?
 
