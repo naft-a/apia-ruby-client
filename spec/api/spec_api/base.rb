@@ -13,6 +13,9 @@ module SpecAPI
       get 'products', controller: Controllers::ProductsController, endpoint: :list
       get 'products/:id', controller: Controllers::ProductsController, endpoint: :info
       post 'products', controller: Controllers::ProductsController, endpoint: :create
+      patch 'products/:id', controller: Controllers::ProductsController, endpoint: :update
+      put 'products/:id', controller: Controllers::ProductsController, endpoint: :update
+      delete 'products/:id', controller: Controllers::ProductsController, endpoint: :delete
     end
 
   end
