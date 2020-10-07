@@ -9,7 +9,7 @@ RSpec.shared_context 'with API' do
   require 'spec_api/base'
 
   let(:rack_app) do
-    Rapid::Rack.new(nil, SpecAPI::Base, 'v1')
+    Rapid::Rack.new(nil, SpecAPI::Base, 'v1', development: true)
   end
 
   before do

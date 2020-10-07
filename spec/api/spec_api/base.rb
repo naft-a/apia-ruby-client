@@ -9,6 +9,8 @@ module SpecAPI
     routes do
       schema
       get 'products', controller: Controllers::ProductsController, endpoint: :list
+      get 'products/:id', controller: Controllers::ProductsController, endpoint: :info
+      post 'products', controller: Controllers::ProductsController, endpoint: :create
     end
 
   end

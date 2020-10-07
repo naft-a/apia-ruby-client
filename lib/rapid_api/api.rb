@@ -3,11 +3,14 @@
 require 'net/http'
 require 'json'
 require 'rapid_schema_parser'
-require 'rapid_api/request_error'
-require 'rapid_api/connection_error'
+require 'rapid_api/errors/request_error'
+require 'rapid_api/errors/connection_error'
+require 'rapid_api/errors/schema_not_loaded_error'
+require 'rapid_api/response'
+require 'rapid_api/request_proxy'
 
 module RapidAPI
-  class Client
+  class API
 
     attr_reader :host
     attr_reader :headers
@@ -35,18 +38,32 @@ module RapidAPI
       !!@schema
     end
 
-    def load_schema_from_api
-      body = make_request(Net::HTTP::Get, 'schema')
-      @schema = RapidSchemaParser::Schema.new(body)
+    def load_schema
+      response = request(Get.new('schema'))
+      @schema = RapidSchemaParser::Schema.new(response.hash)
       true
     end
 
-    def make_request(type, path)
-      request = type.new("/#{namespace}/#{path}")
-      request['Content-Type'] = 'application/json'
-      yield request if block_given?
-      response = make_request_with_error_handling(request)
-      handle_response(response)
+    def request(request)
+      status, headers, body = make_request(request.class.method, request.path_for_net_http) do |req|
+        request.add_arguments_to_request(req)
+      end
+      Response.new(self, request, body, headers, status)
+    end
+
+    def create_request(method, path)
+      unless schema?
+        raise SchemaNotLoadedError, 'No schema has been loaded for this API instance'
+      end
+
+      route = schema.api.route_set.routes.find do |route|
+        route.request_method == method.to_s.upcase &&
+          route.path == path
+      end
+
+      return if route.nil?
+
+      RequestProxy.new(self, route)
     end
 
     private
@@ -57,6 +74,13 @@ module RapidAPI
         http.use_ssl = ssl?
         http
       end
+    end
+
+    def make_request(type, path)
+      request = type.new("/#{namespace}/#{path}")
+      yield request if block_given?
+      response = make_request_with_error_handling(request)
+      handle_response(response)
     end
 
     def make_request_with_error_handling(request)
@@ -74,7 +98,7 @@ module RapidAPI
 
       status_code = response.code.to_i
       if status_code >= 200 && status_code < 300
-        return body
+        return [status_code, response.to_hash, body]
       end
 
       raise RequestError.new(self, status_code, body)
