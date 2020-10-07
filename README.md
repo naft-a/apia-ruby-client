@@ -40,6 +40,6 @@ end
 If you prefer to make a quick API call, you can do so more quickly...
 
 ```ruby
-api = RapidAPI::API.load('api.example.com')
+api = RapidAPI.load('api.example.com')
 api.perform(:get, 'products')
 ```
