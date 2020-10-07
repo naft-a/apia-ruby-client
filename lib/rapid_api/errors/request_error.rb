@@ -10,6 +10,20 @@ module RapidAPI
       @client = client
       @status = status
       @body = body
+
+      @error = @body['error']
+    end
+
+    def code
+      @error['code']
+    end
+
+    def description
+      @error['description']
+    end
+
+    def detail
+      @error['detail'] || {}
     end
 
   end
