@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'rapid_api/delete'
-require 'rapid_api/get'
-require 'rapid_api/patch'
-require 'rapid_api/post'
-require 'rapid_api/put'
+require 'rapid_api/request_types/delete'
+require 'rapid_api/request_types/get'
+require 'rapid_api/request_types/patch'
+require 'rapid_api/request_types/post'
+require 'rapid_api/request_types/put'
 
 require 'rapid_api/api'
 

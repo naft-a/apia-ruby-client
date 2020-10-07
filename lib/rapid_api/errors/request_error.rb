@@ -29,14 +29,20 @@ module RapidAPI
     end
 
     def code
+      return if @error.nil?
+
       @error['code']
     end
 
     def description
+      return if @error.nil?
+
       @error['description']
     end
 
     def detail
+      return if @error.nil?
+
       @error['detail'] || {}
     end
 
