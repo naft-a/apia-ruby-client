@@ -22,7 +22,7 @@ module RapidAPI
       @request = request_class.new(@route.path)
     end
 
-    def send
+    def perform
       @client.request(@request)
     end
 

@@ -22,7 +22,7 @@ request.arguments[:name] = 'My example product'
 # Execute the request and get a response back. If there is an issue,
 # an exception will be raised here.
 begin
-  response = request.send
+  response = request.perform
   response.hash     # => The result
   response.status   # => 200
   response.headers  # => {... headers ...}
