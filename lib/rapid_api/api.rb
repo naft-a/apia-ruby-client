@@ -51,6 +51,14 @@ module RapidAPI
       Response.new(self, request, body, headers, status)
     end
 
+    def perform_request(*args)
+      request = create_request(*args)
+      return if request.nil?
+
+      yield request if block_given?
+      request.perform
+    end
+
     def create_request(method, path)
       unless schema?
         raise SchemaNotLoadedError, 'No schema has been loaded for this API instance'
