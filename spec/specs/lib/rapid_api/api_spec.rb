@@ -5,6 +5,14 @@ require 'spec_helper'
 describe RapidAPI::API do
   subject(:api) { described_class.new('api.example.com', namespace: 'v1') }
 
+  context '.load' do
+    it 'loads the schema' do
+      api = described_class.load('api.example.com', namespace: 'v1')
+      expect(api.schema?).to be true
+      expect(api.schema).to be_a RapidSchemaParser::Schema
+    end
+  end
+
   context '#ssl?' do
     it 'is true by default' do
       expect(api.ssl?).to be true

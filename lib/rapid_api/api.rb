@@ -112,5 +112,15 @@ module RapidAPI
       raise RequestError.new(self, status_code, body)
     end
 
+    class << self
+
+      def load(*args)
+        api = new(*args)
+        api.load_schema
+        api
+      end
+
+    end
+
   end
 end
