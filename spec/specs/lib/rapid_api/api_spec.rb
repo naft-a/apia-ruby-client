@@ -109,7 +109,6 @@ describe RapidAPI::API do
       request = RapidAPI::Get.new('missing-route')
       expect { client.request(request) }.to raise_error RapidAPI::RequestError do |e|
         expect(e.status).to eq 404
-        puts e.body.inspect
         expect(e.code).to eq 'route_not_found'
         expect(e.description).to eq "No route matches 'missing-route' for GET"
       end
