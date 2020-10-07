@@ -6,6 +6,7 @@ module RapidAPI
     attr_reader :status
     attr_reader :body
 
+    # rubocop:disable Lint/MissingSuper
     def initialize(client, status, body)
       @client = client
       @status = status
@@ -13,6 +14,7 @@ module RapidAPI
 
       @error = @body['error']
     end
+    # rubocop:enable Lint/MissingSuper
 
     def to_s
       string = ["[#{@status}]"]

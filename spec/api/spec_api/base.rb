@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_api/controllers/products_controller'
 
 module SpecAPI

@@ -56,9 +56,9 @@ module RapidAPI
         raise SchemaNotLoadedError, 'No schema has been loaded for this API instance'
       end
 
-      route = schema.api.route_set.routes.find do |route|
-        route.request_method == method.to_s.upcase &&
-          route.path == path
+      route = schema.api.route_set.routes.find do |r|
+        r.request_method == method.to_s.upcase &&
+          r.path == path
       end
 
       return if route.nil?
