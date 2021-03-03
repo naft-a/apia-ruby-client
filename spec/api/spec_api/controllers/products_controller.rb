@@ -37,6 +37,27 @@ module SpecAPI
         end
       end
 
+      endpoint :update do
+        name 'Update a product'
+        argument :id, :string, required: true
+        argument :name, :string
+        field :id, :string
+        field :name, :string
+        action do
+          response.add_field :id, request.arguments[:id]
+          response.add_field :name, request.arguments[:name]
+        end
+      end
+
+      endpoint :delete do
+        name 'Delete a product'
+        argument :id, :string, required: true
+        field :id, :string
+        action do
+          response.add_field :id, request.arguments[:id]
+        end
+      end
+
     end
   end
 end
