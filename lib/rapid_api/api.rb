@@ -86,6 +86,9 @@ module RapidAPI
 
     def make_request(type, path)
       request = type.new("/#{namespace}/#{path}")
+      @headers.each do |key, value|
+        request[key] = value
+      end
       yield request if block_given?
       response = make_request_with_error_handling(request)
       handle_response(response)
