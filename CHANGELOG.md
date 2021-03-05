@@ -2,6 +2,12 @@
 
 This file contains all the latest changes and updates to this application.
 
+## 1.0.0-alpha.4
+
+### Bug Fixes
+
+- don't reuse Net::HTTP instances ([5df29e](https://github.com/krystal/rapid_api_client/commit/5df29eac9d17a9fa64fff9224f96887c07ec8b6a))
+
 ## 1.0.0-alpha.3
 
 ### Bug Fixes
