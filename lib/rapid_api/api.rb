@@ -76,12 +76,10 @@ module RapidAPI
 
     private
 
-    def http
-      @http ||= begin
-        http = Net::HTTP.new(host, port)
-        http.use_ssl = ssl?
-        http
-      end
+    def create_http
+      http = Net::HTTP.new(host, port)
+      http.use_ssl = ssl?
+      http
     end
 
     def make_request(type, path)
@@ -95,7 +93,7 @@ module RapidAPI
     end
 
     def make_request_with_error_handling(request)
-      http.request(request)
+      create_http.request(request)
     rescue StandardError => e
       raise ConnectionError, e.message
     end
