@@ -117,8 +117,8 @@ module RapidAPI
 
     class << self
 
-      def load(*args)
-        api = new(*args)
+      def load(*args, **options)
+        api = new(*args, **options)
         api.load_schema
         api
       end

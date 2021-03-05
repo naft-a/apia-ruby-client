@@ -12,8 +12,8 @@ module RapidAPI
 
   class << self
 
-    def load(*args)
-      API.load(*args)
+    def load(*args, **options)
+      API.load(*args, **options)
     end
 
   end
