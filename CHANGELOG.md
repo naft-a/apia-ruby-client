@@ -2,6 +2,12 @@
 
 This file contains all the latest changes and updates to this application.
 
+## 1.0.0-alpha.3
+
+### Bug Fixes
+
+- ruby 3.0 support ([4d311e](https://github.com/krystal/rapid_api_client/commit/4d311e8b8d56d0ee1cb7a4374159333b26724690))
+
 ## 1.0.0-alpha.2
 
 ## 1.0.0-alpha.1
