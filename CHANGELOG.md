@@ -2,6 +2,12 @@
 
 This file contains all the latest changes and updates to this application.
 
+## 1.0.0-alpha.5
+
+### Features
+
+- support for specifying timeouts ([124e7a](https://github.com/krystal/rapid_api_client/commit/124e7a43d147bdff59cf043d05b0cf5064859a08))
+
 ## 1.0.0-alpha.4
 
 ### Bug Fixes
