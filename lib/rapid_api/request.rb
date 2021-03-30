@@ -13,6 +13,8 @@ module RapidAPI
 
     attr_reader :path
     attr_reader :arguments
+    attr_accessor :http_read_timeout
+    attr_accessor :http_open_timeout
 
     def initialize(path)
       @path = path

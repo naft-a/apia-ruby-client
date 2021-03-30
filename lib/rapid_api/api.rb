@@ -6,6 +6,7 @@ require 'rapid_schema_parser'
 require 'rapid_api/errors/request_error'
 require 'rapid_api/errors/connection_error'
 require 'rapid_api/errors/schema_not_loaded_error'
+require 'rapid_api/errors/timeout_error'
 require 'rapid_api/response'
 require 'rapid_api/request_proxy'
 
@@ -45,7 +46,7 @@ module RapidAPI
     end
 
     def request(request)
-      status, headers, body = make_request(request.class.method, request.path_for_net_http) do |req|
+      status, headers, body = make_http_request(request) do |req|
         request.add_arguments_to_request(req)
       end
       Response.new(self, request, body, headers, status)
@@ -76,24 +77,32 @@ module RapidAPI
 
     private
 
-    def create_http
+    def create_http(**options)
       http = Net::HTTP.new(host, port)
       http.use_ssl = ssl?
+      http.read_timeout = options[:http_read_timeout] || @options[:http_read_timeout] || 60
+      http.open_timeout = options[:http_open_timeout] || @options[:http_open_timeout] || 10
       http
     end
 
-    def make_request(type, path)
-      request = type.new("/#{namespace}/#{path}")
+    def make_http_request(request)
+      http_request = request.class.method.new("/#{namespace}/#{request.path_for_net_http}")
       @headers.each do |key, value|
-        request[key] = value
+        http_request[key] = value
       end
-      yield request if block_given?
-      response = make_request_with_error_handling(request)
+      yield http_request if block_given?
+      response = make_request_with_error_handling(http_request, request)
       handle_response(response)
     end
 
-    def make_request_with_error_handling(request)
-      create_http.request(request)
+    def make_request_with_error_handling(http_request, request)
+      http = create_http(
+        http_read_timeout: request.http_read_timeout,
+        http_open_timeout: request.http_open_timeout
+      )
+      http.request(http_request)
+    rescue Timeout::Error => e
+      raise RapidAPI::TimeoutError, e.message
     rescue StandardError => e
       raise ConnectionError, e.message
     end
