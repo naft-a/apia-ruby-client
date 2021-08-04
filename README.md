@@ -1,13 +1,13 @@
-# Rapid API Client
+![Welcome](https://share.adam.ac/21/Artboard-Copy-3-NHLb3VEvKfC4DlxRQo.png)
 
-This is a library to faciliate Ruby applications wishing to talk to generic Rapid APIs.
+This is a library to faciliate Ruby applications wishing to talk to generic Apia APIs.
 
 ## Getting started
 
 ```ruby
 # Create a client instance pointing to the API that you wish to connect to.
 # By default, it will assume you wish to use SSL and connect on port 443.
-api = RapidAPI::API.new('api.example.com')
+api = ApiaClient::API.new('api.example.com')
 
 # Load in the schema from the API if the API supports this
 api.load_schema
@@ -27,12 +27,12 @@ begin
   response.status   # => 200
   response.headers  # => {... headers ...}
   response.request  # => The request object
-rescue RapidAPI::RequestError => error
+rescue ApiaClient::RequestError => error
   error.status      # => 404
   error.code        # => 'invalid_route'
   error.description # => 'Description of the error'
   error.detail      # => {... additional details ...}
-rescue RapidAPI::CommunicationError => error
+rescue ApiaClient::CommunicationError => error
   error.message     # => Text describing the communication error
 end
 ```
@@ -40,6 +40,6 @@ end
 If you prefer to make a quick API call, you can do so more quickly...
 
 ```ruby
-api = RapidAPI.load('api.example.com')
+api = ApiaClient.load('api.example.com')
 api.perform(:get, 'products')
 ```

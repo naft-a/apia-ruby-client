@@ -3,7 +3,7 @@
 require 'spec_api/controllers/products_controller'
 
 module SpecAPI
-  class Base < Rapid::API
+  class Base < Apia::API
 
     name 'Example API'
     description 'This is an example API for the purposes of just '

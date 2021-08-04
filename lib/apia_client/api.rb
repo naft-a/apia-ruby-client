@@ -2,15 +2,15 @@
 
 require 'net/http'
 require 'json'
-require 'rapid_schema_parser'
-require 'rapid_api/errors/request_error'
-require 'rapid_api/errors/connection_error'
-require 'rapid_api/errors/schema_not_loaded_error'
-require 'rapid_api/errors/timeout_error'
-require 'rapid_api/response'
-require 'rapid_api/request_proxy'
+require 'apia_schema_parser'
+require 'apia_client/errors/request_error'
+require 'apia_client/errors/connection_error'
+require 'apia_client/errors/schema_not_loaded_error'
+require 'apia_client/errors/timeout_error'
+require 'apia_client/response'
+require 'apia_client/request_proxy'
 
-module RapidAPI
+module ApiaClient
   class API
 
     attr_reader :host
@@ -41,7 +41,7 @@ module RapidAPI
 
     def load_schema
       response = request(Get.new('schema'))
-      @schema = RapidSchemaParser::Schema.new(response.hash)
+      @schema = ApiaSchemaParser::Schema.new(response.hash)
       true
     end
 
@@ -102,7 +102,7 @@ module RapidAPI
       )
       http.request(http_request)
     rescue Timeout::Error => e
-      raise RapidAPI::TimeoutError, e.message
+      raise ApiaClient::TimeoutError, e.message
     rescue StandardError => e
       raise ConnectionError, e.message
     end

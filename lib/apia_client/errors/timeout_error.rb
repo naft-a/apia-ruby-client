@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rapid_api/errors/connection_error'
+require 'apia_client/errors/connection_error'
 
-module RapidAPI
+module ApiaClient
   class TimeoutError < ConnectionError
   end
 end

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'rapid_api/request'
+require 'apia_client/request'
 require 'json'
 require 'uri'
 
-module RapidAPI
+module ApiaClient
   class Get < Request
 
     self.method = Net::HTTP::Get

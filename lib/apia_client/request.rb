@@ -2,7 +2,7 @@
 
 require 'net/http'
 
-module RapidAPI
+module ApiaClient
   class Request
 
     class << self

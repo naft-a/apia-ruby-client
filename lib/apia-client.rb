@@ -1,6 +1,6 @@
 # rubocop:disable Naming/FileName
 # frozen_string_literal: true
 
-require 'rapid_api'
+require 'apia_client'
 
 # rubocop:enable Naming/FileName

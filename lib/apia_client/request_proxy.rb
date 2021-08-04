@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-module RapidAPI
+module ApiaClient
   class RequestProxy
 
     METHOD_MAP = {
-      get: RapidAPI::Get,
-      post: RapidAPI::Post,
-      patch: RapidAPI::Patch,
-      put: RapidAPI::Put,
-      delete: RapidAPI::Delete
+      get: ApiaClient::Get,
+      post: ApiaClient::Post,
+      patch: ApiaClient::Patch,
+      put: ApiaClient::Put,
+      delete: ApiaClient::Delete
     }.freeze
 
     attr_reader :route

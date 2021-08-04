@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-describe RapidAPI::RequestProxy do
+describe ApiaClient::RequestProxy do
   before do
-    @api = RapidAPI::API.new('api.example.com', namespace: 'v1')
+    @api = ApiaClient::API.new('api.example.com', namespace: 'v1')
     @api.load_schema
     @schema = @api.schema
   end
@@ -15,7 +15,7 @@ describe RapidAPI::RequestProxy do
         r.request_method == 'GET' && r.path == 'products'
       end
       rp = described_class.new(@api, route)
-      expect(rp.request).to be_a RapidAPI::Get
+      expect(rp.request).to be_a ApiaClient::Get
     end
 
     it 'is a POST request when appropriate' do
@@ -23,7 +23,7 @@ describe RapidAPI::RequestProxy do
         r.request_method == 'POST' && r.path == 'products'
       end
       rp = described_class.new(@api, route)
-      expect(rp.request).to be_a RapidAPI::Post
+      expect(rp.request).to be_a ApiaClient::Post
     end
 
     it 'is a PATCH request when appropriate' do
@@ -31,7 +31,7 @@ describe RapidAPI::RequestProxy do
         r.request_method == 'PATCH' && r.path == 'products/:id'
       end
       rp = described_class.new(@api, route)
-      expect(rp.request).to be_a RapidAPI::Patch
+      expect(rp.request).to be_a ApiaClient::Patch
     end
 
     it 'is a PUT request when appropriate' do
@@ -39,7 +39,7 @@ describe RapidAPI::RequestProxy do
         r.request_method == 'PUT' && r.path == 'products/:id'
       end
       rp = described_class.new(@api, route)
-      expect(rp.request).to be_a RapidAPI::Put
+      expect(rp.request).to be_a ApiaClient::Put
     end
 
     it 'is a DELETE request when appropriate' do
@@ -47,7 +47,7 @@ describe RapidAPI::RequestProxy do
         r.request_method == 'DELETE' && r.path == 'products/:id'
       end
       rp = described_class.new(@api, route)
-      expect(rp.request).to be_a RapidAPI::Delete
+      expect(rp.request).to be_a ApiaClient::Delete
     end
   end
 
@@ -58,7 +58,7 @@ describe RapidAPI::RequestProxy do
       end
 
       rp = described_class.new(@api, route)
-      expect(rp.perform).to be_a RapidAPI::Response
+      expect(rp.perform).to be_a ApiaClient::Response
     end
   end
 
@@ -79,7 +79,7 @@ describe RapidAPI::RequestProxy do
         r.request_method == 'GET' && r.path == 'products/:id'
       end
       rp = described_class.new(@api, route)
-      expect(rp.endpoint).to be_a RapidSchemaParser::Endpoint
+      expect(rp.endpoint).to be_a ApiaSchemaParser::Endpoint
     end
   end
 

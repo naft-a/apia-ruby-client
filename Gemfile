@@ -13,7 +13,5 @@ gem 'webmock'
 gem 'rake'
 gem 'rubocop', '0.91.1'
 
-source 'https://rubygems.pkg.github.com/krystal' do
-  gem 'rapid'
-  gem 'rapid-schema-parser'
-end
+gem 'apia'
+gem 'apia-schema-parser'

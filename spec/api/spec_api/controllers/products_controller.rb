@@ -4,7 +4,7 @@ require 'securerandom'
 
 module SpecAPI
   module Controllers
-    class ProductsController < Rapid::Controller
+    class ProductsController < Apia::Controller
 
       name 'Products API'
 

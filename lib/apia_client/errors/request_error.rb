@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module RapidAPI
+module ApiaClient
   class RequestError < StandardError
 
     attr_reader :status

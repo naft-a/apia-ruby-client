@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module RapidAPI
+module ApiaClient
 
   VERSION_FILE_ROOT = File.expand_path('../../VERSION', __dir__)
   if File.file?(VERSION_FILE_ROOT)

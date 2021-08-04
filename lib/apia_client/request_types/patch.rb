@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rapid_api/request'
+require 'apia_client/request'
 
-module RapidAPI
+module ApiaClient
   class Patch < Request
 
     self.method = Net::HTTP::Patch

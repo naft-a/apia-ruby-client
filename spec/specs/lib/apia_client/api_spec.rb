@@ -2,14 +2,14 @@
 
 require 'spec_helper'
 
-describe RapidAPI::API do
+describe ApiaClient::API do
   subject(:api) { described_class.new('api.example.com', namespace: 'v1') }
 
   context '.load' do
     it 'loads the schema' do
       api = described_class.load('api.example.com', namespace: 'v1')
       expect(api.schema?).to be true
-      expect(api.schema).to be_a RapidSchemaParser::Schema
+      expect(api.schema).to be_a ApiaSchemaParser::Schema
     end
   end
 
@@ -71,7 +71,7 @@ describe RapidAPI::API do
   context '#load_schema' do
     it 'loads the schema' do
       expect(api.load_schema).to be true
-      expect(api.schema).to be_a RapidSchemaParser::Schema
+      expect(api.schema).to be_a ApiaSchemaParser::Schema
     end
 
     it 'marks the schema as loaded' do
@@ -81,41 +81,41 @@ describe RapidAPI::API do
 
     it 'raises a connection error if there is a connection error' do
       stub_request(:any, /api.example.com/).to_raise Errno::ECONNREFUSED
-      expect { api.load_schema }.to raise_error RapidAPI::ConnectionError
+      expect { api.load_schema }.to raise_error ApiaClient::ConnectionError
     end
 
     it 'raise a connection error if there is a timeout' do
       stub_request(:any, /api.example.com/).to_timeout
-      expect { api.load_schema }.to raise_error RapidAPI::ConnectionError
+      expect { api.load_schema }.to raise_error ApiaClient::ConnectionError
     end
   end
 
   context '#request' do
     it 'returns a response object' do
-      request = RapidAPI::Get.new('products')
-      expect(api.request(request)).to be_a RapidAPI::Response
+      request = ApiaClient::Get.new('products')
+      expect(api.request(request)).to be_a ApiaClient::Response
     end
 
     it 'sends arguments for GET requests' do
-      request = RapidAPI::Get.new('products/:id')
+      request = ApiaClient::Get.new('products/:id')
       request.arguments[:id] = 'macbook'
 
       response = api.request(request)
-      expect(response).to be_a RapidAPI::Response
+      expect(response).to be_a ApiaClient::Response
       expect(response.hash['product']).to eq 'macbook'
     end
 
     it 'sends arguments for POST requests' do
-      request = RapidAPI::Post.new('products')
+      request = ApiaClient::Post.new('products')
       request.arguments[:name] = 'sonos'
       response = api.request(request)
-      expect(response).to be_a RapidAPI::Response
+      expect(response).to be_a ApiaClient::Response
       expect(response.hash['name']).to eq 'sonos'
     end
 
     it 'raises an error if theres an error' do
-      request = RapidAPI::Get.new('missing-route')
-      expect { api.request(request) }.to raise_error RapidAPI::RequestError do |e|
+      request = ApiaClient::Get.new('missing-route')
+      expect { api.request(request) }.to raise_error ApiaClient::RequestError do |e|
         expect(e.status).to eq 404
         expect(e.code).to eq 'route_not_found'
         expect(e.description).to eq "No route matches 'missing-route' for GET"
@@ -123,22 +123,22 @@ describe RapidAPI::API do
     end
 
     it 'raises a connection error' do
-      request = RapidAPI::Get.new('products')
+      request = ApiaClient::Get.new('products')
       stub_request(:any, /api.example.com/).to_raise Errno::ECONNREFUSED
-      expect { api.request(request) }.to raise_error RapidAPI::ConnectionError
+      expect { api.request(request) }.to raise_error ApiaClient::ConnectionError
     end
   end
 
   context '#create_request' do
     it 'raises an error if the schema has not been loaded' do
-      expect { api.create_request(:get, 'products') }.to raise_error RapidAPI::SchemaNotLoadedError
+      expect { api.create_request(:get, 'products') }.to raise_error ApiaClient::SchemaNotLoadedError
     end
 
     it 'returns an appropriate request instance' do
       api.load_schema
       request = api.create_request(:get, 'products')
-      expect(request).to be_a RapidAPI::RequestProxy
-      expect(request.request).to be_a RapidAPI::Get
+      expect(request).to be_a ApiaClient::RequestProxy
+      expect(request.request).to be_a ApiaClient::Get
       expect(request.request.path).to eq 'products'
     end
 
