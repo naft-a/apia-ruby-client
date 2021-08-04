@@ -5,6 +5,10 @@ This is a library to faciliate Ruby applications wishing to talk to generic Apia
 ## Getting started
 
 ```ruby
+gem 'apia-client', '~> 2.0'
+```
+
+```ruby
 # Create a client instance pointing to the API that you wish to connect to.
 # By default, it will assume you wish to use SSL and connect on port 443.
 api = ApiaClient::API.new('api.example.com')
