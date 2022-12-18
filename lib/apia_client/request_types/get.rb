@@ -10,8 +10,7 @@ module ApiaClient
     self.method = Net::HTTP::Get
 
     def path_for_net_http
-      querystring = URI.encode_www_form(_arguments: @arguments.to_json)
-      "#{path}?#{querystring}"
+      path_for_net_http_with_params
     end
 
     def add_arguments_to_request(request)
